@@ -1,0 +1,28 @@
+# Core libraries
+numpy
+pandas
+scikit-learn
+matplotlib
+
+# Modeling
+xgboost
+lightgbm
+
+# ML Experiment tracking
+mlflow
+
+# Deployment (REST API)
+flask
+
+# (Optional) Monitoring
+evidently
+
+# (Optional) Data versioning
+dvc
+
+# Save/load models
+joblib
+
+# Visualization (optional but useful for EDA)
+seaborn
+

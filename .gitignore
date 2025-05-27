@@ -1,0 +1,91 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Pytest
+.pytest_cache/
+
+# Environment
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# VS Code
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Data files
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.json
+
+# Model artifacts
+*.pkl
+*.joblib
+models/
+
+
+# MLflow
+mlruns/
+mlflow.db
+mlflow-artifacts/
+*.mlmodel
+
+# Airflow
+airflow.db
+airflow.cfg
+logs/
+dags/__pycache__/
+dags/*.pyc
+dags/*.pyo
+plugins/__pycache__/
+plugins/*.pyc
+plugins/*.pyo
+
+# For custom Docker-based Airflow
+.*/airflow/logs/*
+.*/airflow/airflow.cfg
+
+# -------------------------
+# Docker
+# -------------------------
+*.bak
+*.swp
+*.tmp
+docker-compose.override.yml
+.env.docker
+.env.airflow
