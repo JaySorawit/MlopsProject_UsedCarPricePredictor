@@ -1,6 +1,7 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
+from airflow.operators.empty import EmptyOperator
 import sys
 
 # เพิ่ม path ให้ Airflow รู้จักโค้ดใน src/
@@ -25,6 +26,8 @@ with DAG(
     tags=['ml', 'airflow', 'mlflow']
 ) as dag:
 
+    start = EmptyOperator(task_id='start')
+
     preprocess_task = PythonOperator(
         task_id='preprocess_data',
         python_callable=preprocess_data
@@ -34,5 +37,6 @@ with DAG(
         task_id='train_model',
         python_callable=train_model
     )
+    end = EmptyOperator(task_id='end')
 
-    preprocess_task >> train_task
+    start >> preprocess_task  >> end
