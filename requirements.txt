@@ -12,7 +12,8 @@ lightgbm
 mlflow
 
 # Deployment (REST API)
-flask
+fastapi
+uvicorn
 
 # (Optional) Monitoring
 evidently
@@ -25,4 +26,3 @@ joblib
 
 # Visualization (optional but useful for EDA)
 seaborn
-
