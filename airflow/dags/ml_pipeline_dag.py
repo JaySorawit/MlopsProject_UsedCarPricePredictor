@@ -50,12 +50,7 @@ with DAG(
         python_callable=preprocess_data
     )
 
-    # train 
-    train_task = PythonOperator(
-        task_id='train_model',
-        python_callable=train_model
-    )
 
 
     # DAG pipeline structure
-    start >> data_collection_task >> data_cleaning_task >> preprocess_task >> train_task >>  end
+    start >> data_collection_task >> data_cleaning_task >> preprocess_task >>  end

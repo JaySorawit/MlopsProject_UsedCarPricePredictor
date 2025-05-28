@@ -4,6 +4,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import joblib
 import os 
 
+""""
 def train_model():
     input_name = 'preprocessed_data.npz'
     output_name = 'model.pkl'
@@ -45,3 +46,4 @@ def train_model():
     print(f"📁 Model saved to: {output_path}")
 
     return output_path
+"""

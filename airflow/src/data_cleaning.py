@@ -2,9 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 def data_cleaning():
     # Set up visualization style
-    output_path = '/opt/airflow/data/processed.csv'
+    output_path = '/opt/airflow/data/cleaned_data.csv'
     # Load dataset
-    df2 = pd.read_csv(output_path)
+    df2 = pd.read_csv('/opt/airflow/data/processed.csv')
     df = df2.copy()
 
     ## drop columns not uses
@@ -83,4 +83,4 @@ def data_cleaning():
 
     ## final data frame
     df_final = df_filtered.copy()
-    df_final.to_csv('/opt/airflow/data/cleaned.csv', index=False)
+    df_final.to_csv(output_path, index=False)
