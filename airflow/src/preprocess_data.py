@@ -1,9 +1,11 @@
+import os
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, OrdinalEncoder, OneHotEncoder
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 import time
+import joblib
 import pandas as pd
 import numpy as np
 
@@ -93,4 +95,12 @@ def preprocess_data():
              feature_names=feature_names_out)
 
     print(f"📁 Saved preprocessed data to: {output_path}")
+
+    # Save preprocessor
+    preprocessor_path = '/opt/airflow/models/preprocessor.joblib'
+    os.makedirs(os.path.dirname(preprocessor_path), exist_ok=True)
+    joblib.dump(preprocessor, preprocessor_path)
+
+    print(f"Saved preprocessor to: {preprocessor_path}")
     return output_path
+

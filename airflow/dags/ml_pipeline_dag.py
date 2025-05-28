@@ -11,7 +11,6 @@ sys.path.append('/opt/airflow/src')
 from data_collection import data_collection
 from data_cleaning import data_cleaning
 from preprocess_data import preprocess_data
-from train_model import train_model
 
 default_args = {
     'owner': 'airflow',
