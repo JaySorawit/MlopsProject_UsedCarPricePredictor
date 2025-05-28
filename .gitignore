@@ -91,3 +91,7 @@ docker-compose.override.yml
 .env.airflow
 
 *.npz
+
+# EXCEPTION: Do NOT ignore airflow/models/
+!airflow/models/
+!airflow/models/**
