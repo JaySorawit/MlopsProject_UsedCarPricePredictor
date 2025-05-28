@@ -49,7 +49,5 @@ with DAG(
         python_callable=preprocess_data
     )
 
-
-
     # DAG pipeline structure
     start >> data_collection_task >> data_cleaning_task >> preprocess_task >>  end
