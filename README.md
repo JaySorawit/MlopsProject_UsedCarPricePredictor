@@ -5,11 +5,11 @@ This project implements an end-to-end MLOps pipeline to predict used car prices.
 ---
 
 ## 📁 Project Structure
-├── airflow/ # Airflow DAGs and configurations<br> 
+├── airflow/ # Airflow DAGs and configurations<br>
+├── data/ # Store data that get from kaggle<br>
+├── mlflow/ # tracking server artifacts and logs<br>
 ├── notebooks/ # Jupyter notebooks for EDA and model development<br>
-├── notebooks/ # Jupyter notebooks for EDA and model development<br>
-├── src/ # Source code for data processing and model training<br>
-├── Dockerfile # Docker configuration for containerization<br>
+├── src/ # Source code for python app<br>
 ├── requirements.txt # Python dependencies<br>
 ├── .gitignore # Git ignore file<br>
 
@@ -21,7 +21,6 @@ This project implements an end-to-end MLOps pipeline to predict used car prices.
 
 - Python 3.8 or higher
 - Docker
-- Apache Airflow
 
 ### Installation
 
@@ -29,21 +28,15 @@ This project implements an end-to-end MLOps pipeline to predict used car prices.
    ```bash
    git clone https://github.com/Galaxiiz7/MlopsProject_UsedCarPricePredictor.git
    cd MlopsProject_UsedCarPricePredictor
-2. **Install dependencies:**
+2. **Set up and start Airflow and MLflow:**
    ```bash
-   pip install -r requirements.txt
-3. **Set up Airflow:**
-Follow the official Apache Airflow installation guide to set up Airflow.
-
-4. **Initialize Airflow database:**
-   ```bash
-   airflow db init
-5. **Start Airflow web server and scheduler:**
-   ```bash
-   airflow webserver --port 8080
-   airflow scheduler
-6. **Access Airflow UI:**
+   cd .\airflow\
+   docker-compose build
+   docker-compose up
+3. **Access Airflow UI:**
    Open your browser and go to: http://localhost:8080
+4. **Access MLflow UI:**
+   Open your browser and go to: http://localhost:5000
 ---
 ## 🧪 Usage
 
@@ -54,22 +47,22 @@ Use the Jupyter notebooks in the `notebooks/` directory for Exploratory Data Ana
 ### 2. Model Training
 
 **Run the training scripts located in the `src/` directory. For example:**
-  ```bash
+```bash
    python src/train_model.py
 ```
-3. Model Deployment with Flask
-To build and run the model as a REST API using Docker:
+
+### 3. Model Deployment with Fast API
+To build and run the REST API using Docker:
 ```bash
-  docker build -t used-car-price-predictor .
-  docker run -p 5000:5000 used-car-price-predictor
+   uvicorn src.app:app --host 0.0.0.0 --port 10000
 ```
 Once the container is running, the API will be accessible at: http://localhost:5000
-4. Orchestrate Pipeline with Airflow
+### 4. Orchestrate Pipeline with Airflow
   1. Place your DAG scripts in the airflow/dags/ directory.
   2. Start the Airflow webserver and scheduler:
   ```bash
-airflow webserver --port 8080
-airflow scheduler
+   docker-compose build
+   docker-compose up
   ```
   3. Open the Airflow web interface at: http://localhost:8080
      From there, you can trigger and monitor your ML workflow.
