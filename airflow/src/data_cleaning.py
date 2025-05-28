@@ -27,13 +27,13 @@ def data_cleaning():
         if col in df.columns:
             df[col] = df[col].fillna('unknown')
         else:
-            print(f"⚠️ Warning: Column '{col}' not found in dataset.")
+            print(f"Warning: Column '{col}' not found in dataset.")
 
 
     ## Drop duplicate 
     df.drop_duplicates(inplace=True)
 
-    ## Cardinality Reduction
+    ## Cardinality Reduction 
     def reduce_cardinality(df, column, n):
         if column not in df.columns:
             print(f"Column {column} not found ")
@@ -44,7 +44,8 @@ def data_cleaning():
         return df
 
     df = reduce_cardinality(df, 'manufacturer', 30)
-    df = reduce_cardinality(df, 'region', 100)
+    df = reduce_cardinality(df, 'region', 50)
+    df = reduce_cardinality(df, 'model', 50)
 
     ## clean outlier
     df['price'] = pd.to_numeric(df['price'], errors='coerce')
