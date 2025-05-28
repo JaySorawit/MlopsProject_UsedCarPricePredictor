@@ -89,3 +89,5 @@ plugins/*.pyo
 docker-compose.override.yml
 .env.docker
 .env.airflow
+
+.npz
