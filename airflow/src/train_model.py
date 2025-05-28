@@ -1,29 +1,43 @@
-import pandas as pd
-from sklearn.linear_model import LinearRegression
-import mlflow
-import mlflow.sklearn
-import joblib
-import os
 
 def train_model():
-    data_path = '/opt/airflow/data/processed.csv'
-    model_path = '/opt/airflow/data/model.pkl'
+    import numpy as np
+    from sklearn.ensemble import RandomForestRegressor
+    from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+    import joblib
 
-    df = pd.read_csv(data_path)
-    X = df.drop(columns=['price'], errors='ignore')
-    y = df['price'] if 'price' in df.columns else df.iloc[:, -1]
+    input_path = '/opt/airflow/data/preprocessed_data.npz'
+    output_path = '/opt/airflow/data/model.pkl'
 
-    model = LinearRegression()
-    model.fit(X, y)
+    print(f"Loading preprocessed data from {input_path}")
+    data = np.load(input_path, allow_pickle=True)
 
-    # เชื่อมต่อกับ MLflow
-    mlflow.set_tracking_uri("http://mlflow:5000")
-    mlflow.set_experiment("UsedCarPricePrediction")
+    X_train = data['X_train']
+    X_test = data['X_test']
+    y_train = data['y_train']
+    y_test = data['y_test']
 
-    with mlflow.start_run():
-        mlflow.log_param("model_type", "LinearRegression")
-        mlflow.log_metric("score", model.score(X, y))
-        mlflow.sklearn.log_model(model, "model")
+    # RandomForestRegressor
+    model = RandomForestRegressor(
+        n_estimators=100,
+        max_depth=None,
+        random_state=42,
+        n_jobs=-1
+    )
+    model.fit(X_train, y_train)
 
-    joblib.dump(model, model_path)
-    print(f"Model saved to {model_path}")
+    # evaluate
+    preds = model.predict(X_test)
+    rmse = mean_squared_error(y_test, preds, squared=False)
+    mae = mean_absolute_error(y_test, preds)
+    r2 = r2_score(y_test, preds)
+
+    print(f"✅ Model trained:")
+    print(f"   RMSE: {rmse:.2f}")
+    print(f"   MAE:  {mae:.2f}")
+    print(f"   R²:   {r2:.2f}")
+
+    # Save model
+    joblib.dump(model, output_path)
+    print(f"📁 Model saved to: {output_path}")
+
+    return output_path
