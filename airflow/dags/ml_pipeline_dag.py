@@ -9,7 +9,7 @@ sys.path.append('/opt/airflow/src')
 
 # Import functions จากไฟล์ Python
 from preprocess_data import preprocess_data
-from train_model import train_model
+from data_cleaning import data_cleaning
 
 default_args = {
     'owner': 'airflow',
@@ -33,10 +33,10 @@ with DAG(
         python_callable=preprocess_data
     )
 
-    train_task = PythonOperator(
-        task_id='train_model',
-        python_callable=train_model
+    data_cleaning_task = PythonOperator(
+        task_id='data_cleaning',
+        python_callable=data_cleaning
     )
     end = EmptyOperator(task_id='end')
 
-    start >> preprocess_task  >> end
+    start >> preprocess_task >> data_cleaning_task  >> end
