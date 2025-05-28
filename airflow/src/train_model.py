@@ -1,13 +1,17 @@
+import numpy as np
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+import joblib
+import os 
 
 def train_model():
-    import numpy as np
-    from sklearn.ensemble import RandomForestRegressor
-    from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-    import joblib
+    input_name = 'preprocessed_data.npz'
+    output_name = 'model.pkl'
+    # output_path = '/opt/airflow/data/processed.csv'
 
-    input_path = '/opt/airflow/data/preprocessed_data.npz'
-    output_path = '/opt/airflow/data/model.pkl'
-
+    DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../data/"))
+    input_path = os.path.join(DIR, input_name)
+    output_path = os.path.join(DIR, output_name)
     print(f"Loading preprocessed data from {input_path}")
     data = np.load(input_path, allow_pickle=True)
 
